@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "StudyAce — NEET/JEE Study Planner"
+description = "A responsive NEET/JEE study and productivity platform with task planning, focus sessions, progress analytics, goals, journals, mock tests, revision tracking, and motivating demo data for aspirants."
+version = "1.0.0"
+id = "artifacts/studyace"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18407
+
+[services.development]
+run = "pnpm --filter @workspace/studyace run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/studyace", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/studyace/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18407"
+BASE_PATH = "/"
